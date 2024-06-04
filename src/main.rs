@@ -5,7 +5,11 @@ fn main() {
     let mut gm = GameState::new();
 
     loop{
+
+        print!("{esc}[2J{esc}[1;1H", esc = 27 as char); //clear screen
+
         gm.draw_board();
+
         print!("row: ");
         let row : u8 = match ask_for_input(){
             Err(e) => {println!("parsing error : {e}");continue;}
@@ -23,11 +27,12 @@ fn main() {
         gm.check_for_winner();
         match gm.winner{
             Some(c) => {
+                print!("{esc}[2J{esc}[1;1H", esc = 27 as char); //clear screen
                 gm.draw_board();
                 if c != ' '{
-                    println!("ladies and gentleman. the winner iss {}", c);
+                    println!("And winner is {}", c);
                 }else{
-                    println!("draw");
+                    println!("Draw");
                 }
                 break;
             }
